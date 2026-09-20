@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "watch-flip-scanner-uk"
+version = "6.0.0"
+description = "Local-first UK watch flipping decision-support tool"
+requires-python = ">=3.12"
+dependencies = [
+    "streamlit>=1.36",
+    "httpx>=0.27",
+    "pandas>=2.2",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[tool.setuptools]
+packages = ["wfs"]
+
+[tool.pytest.ini_options]
+# Makes `pytest -q` work from the repository root without installing the
+# package: the root is prepended to sys.path so `import wfs` resolves.
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-q"
