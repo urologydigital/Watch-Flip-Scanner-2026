@@ -189,7 +189,7 @@ def connect(path: Path | str | None = None) -> sqlite3.Connection:
     # across them. Without this, any rerun on a new thread raises
     # "SQLite objects created in a thread can only be used in that same thread".
     # Access is effectively serialised by Streamlit's single-script execution.
-    conn = sqlite3.connect(str(path or DB_PATH), check_same_thread=False)
+    conn = sqlite3.connect(str(path or DB_PATH), check_same_thread=False, timeout=30.0)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys = ON")
     return conn
