@@ -46,11 +46,12 @@ st.markdown(theme.CSS, unsafe_allow_html=True)
 VERDICT_COLOUR = {"BUY": "🟢", CROSS_CHECK: "🔎", "WATCH": "🟡", "PASS": "⚪"}
 
 
-@st.cache_resource
 def get_conn():
-    conn = db.connect()
-    db.init_db(conn)
-    return conn
+    if "_wfs_conn" not in st.session_state:
+        conn = db.connect()
+        db.init_db(conn)
+        st.session_state["_wfs_conn"] = conn
+    return st.session_state["_wfs_conn"]
 
 
 conn = get_conn()
